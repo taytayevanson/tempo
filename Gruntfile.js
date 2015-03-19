@@ -13,56 +13,79 @@ var glob = require('glob'),
 		paths = {
 			src: './src/*',
 			build: './build/'
-		};	
+		},
+		messages = {
+			progress: ':current/:total files built  :bar',
+			complete: 'All files built successfully!'
+		};
 
 function generate(src, finish) {
-	var file = path.basename(src, '.js'),
-			build = fs.createWriteStream(paths.build + file + '.py'),
+	var 
 
-			child = spawn('node', [src]).stdout.pipe(build);
-			child.on('error', grunt.fail.fatal);
-			child.on('close', function(code) {
+	file = path.basename(src, '.js'),
+	build = fs.createWriteStream(paths.build + file + '.py'),
 
-				// tick progress bar
-				bar.tick();
-				finish(null, code);
-			});
+	child = spawn('node', [src]).stdout.pipe(build);
+	child.on('error', grunt.fail.fatal);
+	child.on('close', function(code) {
+
+		// tick progress bar
+		bar.tick();
+		finish(null, code);
+	});
 }
 
-module.exports = function(g) { grunt = g; grunt.registerTask('generate', 'Generates Python files from JS files', function() {
-	var done = this.async();
-	async.waterfall([
+module.exports = function(g) {
+	grunt = g;
 
-		// get src files
-		function(cb) {
-			glob(paths.src, function(err, src) {
-				if(err) cb(err);
-				else {
-
-					// create progress bar
-					bar = new ProgressBar(':current/:total files built  :bar', {
-						total: src.length,
-						width: 100,
-						complete: '=',
-						incomplete: ' ',
-					});
-
-					// async each parameters
-					cb(null, src, generate);
-				}
-			});
+	grunt.initConfig({
+		watch: {
+		  scripts: {
+		    files: [paths.src],
+		    tasks: ['generate'],
+		    options: {
+		      spawn: false,
+		    },
+		  },
 		},
-
-		// build
-		async.eachSeries
-
-	], function(err, res) {
-		if(err) grunt.fail.fatal(err);
-		else {
-			grunt.log.ok('All files built successfully!');
-			done();
-		}
 	});
-});
 
-grunt.registerTask('default', ['generate']);};
+	grunt.registerTask('generate', function() {
+		done = this.async();
+		async.waterfall([
+
+			// get src files
+			function(cb) {
+				glob(paths.src, function(err, src) {
+					if(err) cb(err);
+					else {
+
+						// create progress bar
+						bar = new ProgressBar(messages.progress, {
+							total: src.length,
+							width: 100,
+							complete: '=',
+							incomplete: ' ',
+						});
+
+						// async each parameters
+						cb(null, src, generate);
+					}
+				});
+			},
+
+			// build
+			async.eachSeries
+
+		], function(err, res) {
+			if(err) grunt.fail.fatal(err);
+			else {
+				grunt.log.ok(messages.complete);
+				done();
+			}
+		});
+	});
+
+	grunt.loadNpmTasks('grunt-contrib-watch');
+	grunt.registerTask('default', ['generate']);
+};

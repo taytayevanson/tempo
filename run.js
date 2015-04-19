@@ -9,12 +9,7 @@ var timer,
 		n = 1,
 		m = 1;
 
-console.log(score);
-
 function tick(){
-	// calls every "64th note" of the score
-	// process.stdout.write('tick ');
-
 	// score.measure.note
 	console.log(score[m][n]);
 

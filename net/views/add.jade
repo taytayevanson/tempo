@@ -1,0 +1,12 @@
+extends layout
+block content
+
+	form(method='post')
+		.control-group
+			label.control-label Name
+			input.form-control(type='text', name='name')
+
+		br
+
+		.control-group
+			button.btn.btn-sm.btn-primary(type='submit') Add

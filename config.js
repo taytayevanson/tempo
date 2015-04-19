@@ -3,6 +3,7 @@ var base,
 		tempo = 120,
 		time = 4,
 		measures = 8,
+		seconds = 60,
 		metric = 1000000,
 		notes = [2, 4, 8, 16, 32, 64];
 
@@ -12,7 +13,7 @@ cfg.tempo = tempo;
 cfg.note = {};
 
 // milliseconds per beat
-cfg.note[1] = base = 1 / (tempo / 60) * metric * time;
+cfg.note[1] = base = 1 / (tempo / seconds) * metric * time;
 
 for(n of notes) {
 	cfg.note[n] = base / n;

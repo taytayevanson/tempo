@@ -1,0 +1,26 @@
+{
+  "name": "breathe",
+  "version": "1.0.0",
+  "description": "A time-synchronized light sequencer",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://www.github.com/taytayevanson/breathe"
+  },
+  "keywords": [
+    "node",
+    "timer",
+    "light",
+    "led",
+    "sequence",
+    "edm"
+  ],
+  "author": "taytayevanson",
+  "license": "ISC",
+  "dependencies": {
+    "nanotimer": "^0.3.10"
+  }
+}

@@ -20,7 +20,6 @@ tick = function(){
 	tock();
 },
 
-// after each tick completes
 tock = function() {
 	n++;
 	if(n == cfg.granularity) {

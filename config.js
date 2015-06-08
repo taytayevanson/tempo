@@ -19,5 +19,5 @@ for(n of notes) {
 	cfg.note[n] = base / n;
 }
 
-console.log(cfg);
+// console.log(cfg);
 module.exports = cfg;

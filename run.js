@@ -5,9 +5,8 @@ score = require('./lib/score');
 
 ///
 var
-
-Timer = require('nanotimer'),
 exe = require('./lib/exe'),
+
 n = 1,
 m = 1,
 
@@ -16,7 +15,7 @@ tick = function(){
 	// note
 	// process.stdout.write(score[m][n] + "\n");
 
-	exe(m, n);
+	exe(m, n, score[m][n]);
 	tock();
 },
 
@@ -29,8 +28,11 @@ tock = function() {
 		n = 1;
 		m++;
 	}
-},
+};
 
 // initialize
-timer = new Timer();
-timer.setInterval(tick, null, cfg.note[cfg.granularity] + 'u');
+if   (true     )  new (require('nanotimer'))().setInterval(tick, null, cfg.note[cfg.granularity] + 'u');
+else (function() {
+			console.log('debugging');
+
+})();

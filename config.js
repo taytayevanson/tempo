@@ -2,10 +2,10 @@ var base,
 		cfg = {},
 		tempo = 120,
 		time = 4,
-		measures = 8,
+		measures = 180,
 		seconds = 60,
 		metric = 1000000,
-		notes = [2, 4, 8, 16, 32, 64];
+		notes = [2, 4, 8, 16];
 
 cfg.granularity = notes[notes.length - 1];
 cfg.measures = measures;
